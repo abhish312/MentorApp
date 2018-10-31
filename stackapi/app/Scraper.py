@@ -1,6 +1,7 @@
 #! usr/bin/python
 __author__ = 'Abhishek'
 
+from __future__ import print_function
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -11,12 +12,12 @@ def start(question):
     new_input = "+".join(question.split())
 
     html = requests.get('https://stackoverflow.com/search?q=' + new_input)
-    print "The requested Url is {}".format(html.url)
+    print("The requested Url is {}".format(html.url))
 
     
 
     soup = BeautifulSoup(html.text, "lxml")
-    # print soup.prettify()
+    # print(soup.prettify())
     child = soup.find_all("div", {"class": "question-summary search-result"})
    
     stack = []
@@ -35,20 +36,20 @@ def start(question):
 		
 		#not necessary
 		info = pd.DataFrame(stack)
-		# print info.columns
+		# print(info.columns)
 		info.sort_values('votes', inplace=True, ascending=False)
-		# print info
+		# print(info)
 
 
 		##
-		'''print "Here are are Search Queries related to {} , that might help! ".format(input)
-		print
-		print "1. ", info["titles"][0]
-		print "2. ", info["titles"][1]
-		print
-		print "Which Query You want to Search? "
-		print  "-" * 80
-		print "Press:\n'1' to select {0} \n'2' to select {1} ".format(info["titles"][0], info["titles"][1])
+		'''print("Here are are Search Queries related to {} , that might help! ".format(input))
+		print()
+		print("1. ", info["titles"][0])
+		print("2. ", info["titles"][1])
+		print()
+		print("Which Query You want to Search? ")
+		print ("-" * 80)
+		print("Press:\n'1' to select {0} \n'2' to select {1} ".format(info["titles"][0], info["titles"][1]))
 		while (True):
 		    response = int(raw_input("Your Choice: "))
 		    if response == 1:
@@ -60,7 +61,7 @@ def start(question):
 		    elif response == 0:
 		    	sys.exit()
 		    else:
-		        print "Sorry,  You select a Wrong Key, Try again!"'''
+		        print ("Sorry,  You select a Wrong Key, Try again!")'''
 
 		url_choice = info["url"][0]
 		r_ = requests.get(url_choice)
@@ -69,11 +70,11 @@ def start(question):
 		# child.prettify()
 		'''if child_.find('div', {'class': 'answer accepted-answer'}) != None:
 		    temp = child_.find('div', {'class': 'post-text'})
-		    # print temp
-		    print "-" * 80
+		    # print(temp)
+		    print("-" * 80)
 		    temp = re.sub("<.*?>", '', str(temp))
 		    return temp#.replace("\n", ". ")
-			#print "-"*80'''
+			#print("-"*80''')
 
 
 
@@ -81,19 +82,19 @@ def start(question):
 		rspnse = {}
 		try:
 		    for i in range(len(child_.find_all('div', {'class': 'post-text'}))):
-		        print "Length ", len(child_.find_all('div', {'class' :'post-text' }))
+		        print("Length ", len(child_.find_all('div', {'class' :'post-text' })))
 
 		        temp = child_.find_all('div', {'class': 'post-text'})[i]
-		        print "-" * 80
+		        print("-" * 80)
 		        temp =  re.sub("<.*?>", '', str(temp))
 		        if i  < len(child_.find_all('div', {'class': 'post-text'})):
 		            rspnse['Response {}'.format(i+1)] = temp
-		            print rspnse
+		            print(rspnse)
 		            continue
 		    else:
-		        print "boom"
+		        print("boom")
 		        return rspnse#.replace("\n", "                  5                                        ")
-		        '''print "-"*80
+		        '''print ("-"*80)
 
 
 		        more_reply = raw_input("Want to look more, Input 'yes' or 'no' only :")
@@ -101,11 +102,11 @@ def start(question):
 		            continue
 
 		        elif more_reply.lower() == "no":
-		            print "elif"
+		            print("elif")
 		            break
 		        else:
-		            print "You don't abide by the instructions"
-		            print "else"
+		            print("You don't abide by the instructions")
+		            print("else")
 		            break'''
 		except:
 		    return " Cannot find What you, looking for !"
