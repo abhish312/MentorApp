@@ -1,5 +1,5 @@
-requests==2.18.4
-beautifulsoup4==4.6.0
+requests
+beautifulsoup4
 pandas
 flask
 lxml
